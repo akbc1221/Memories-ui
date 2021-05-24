@@ -6,7 +6,7 @@ Using React, Node.js, Express & MongoDB (MERN) and is deployed on netlify and he
 
 
 ## Setup: ##
-- run ```npm i && npm start``` for both client and server side to start the app
+- run ```npm i && npm start``` for both client side to start the app
 
 ## Visit App ##
 <a href="https://memories-post.netlify.app/">Click here</a>
