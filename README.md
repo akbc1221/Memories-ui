@@ -1,8 +1,8 @@
-# Memories Posting App #
+# Memories App FrontEnd #
 
 ## Introduction
 
-Using React, Node.js, Express & MongoDB (MERN) and is deployed on netlify and heroku. The App is called "Memories" beacuse it is a simple social media app that allows users to post interesting events that happened in their lives.
+Created using Reactjs and is deployed on netlify. The App is called "Memories" because it is a simple social media app that allows users to post interesting events that happened in their lives.
 
 
 ## Setup: ##
