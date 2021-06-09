@@ -8,7 +8,6 @@ import { createPost, updatePost } from "../../actions/posts.js";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setpostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -18,6 +17,7 @@ const Form = ({ currentId, setCurrentId }) => {
     currentId ? state.posts.find((p) => p._id === currentId) : null
   );
   const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +27,6 @@ const Form = ({ currentId, setCurrentId }) => {
   const clear = () => {
     setCurrentId(0);
     setpostData({
-      creator: "",
       title: "",
       message: "",
       tags: "",
@@ -39,12 +38,24 @@ const Form = ({ currentId, setCurrentId }) => {
     e.preventDefault();
 
     if (currentId === 0) {
-      dispatch(createPost(postData));
+      dispatch(createPost({ ...postData, name: user?.result?.name }));
     } else {
-      dispatch(updatePost(currentId, postData));
+      dispatch(
+        updatePost(currentId, { ...postData, name: user?.result?.name })
+      );
     }
     clear();
   };
+
+  if (!user?.result?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please Sign In to create your own memories and like other's memories.
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -57,16 +68,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <Typography variant="h6">
           {currentId ? "Edit" : "Create a"} Memory
         </Typography>
-        <TextField
-          name="creator"
-          variant="outlined"
-          label="Creator"
-          fullWidth
-          value={postData.creator}
-          onChange={(e) =>
-            setpostData({ ...postData, creator: e.target.value })
-          }
-        />
+
         <TextField
           name="title"
           variant="outlined"
@@ -92,7 +94,7 @@ const Form = ({ currentId, setCurrentId }) => {
           fullWidth
           value={postData.tags}
           onChange={(e) => {
-            console.log(typeof e.target.value);
+            // console.log(typeof e.target.value);
             setpostData({ ...postData, tags: e.target.value.split(",") });
           }}
         />
